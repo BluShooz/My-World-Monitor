@@ -293,7 +293,7 @@ export class App {
 
   private handleDeepLinks(): void {
     const url = new URL(window.location.href);
-    
+
     // Check for story deep link: /story?c=UA&t=ciianalysis
     if (url.pathname === '/story' || url.searchParams.has('c')) {
       const countryCode = url.searchParams.get('c');
@@ -306,7 +306,7 @@ export class App {
           SY: 'Syria', YE: 'Yemen', MM: 'Myanmar', VE: 'Venezuela',
         };
         const countryName = countryNames[countryCode.toUpperCase()] || countryCode;
-        
+
         // Wait for data to load, then open story
         const checkAndOpen = () => {
           if (dataFreshness.hasSufficientData() && this.latestClusters.length > 0) {
@@ -316,7 +316,7 @@ export class App {
           }
         };
         setTimeout(checkAndOpen, 2000);
-        
+
         // Update URL without reload
         history.replaceState(null, '', '/');
       }
@@ -677,13 +677,13 @@ export class App {
   private setupSearchModal(): void {
     const searchOptions = SITE_VARIANT === 'tech'
       ? {
-          placeholder: 'Search companies, AI labs, startups, events...',
-          hint: 'HQs • Companies • AI Labs • Startups • Accelerators • Events',
-        }
+        placeholder: 'Search companies, AI labs, startups, events...',
+        hint: 'HQs • Companies • AI Labs • Startups • Accelerators • Events',
+      }
       : {
-          placeholder: 'Search news, pipelines, bases, markets...',
-          hint: 'News • Hotspots • Conflicts • Bases • Pipelines • Cables • Datacenters',
-        };
+        placeholder: 'Search news, pipelines, bases, markets...',
+        hint: 'News • Hotspots • Conflicts • Bases • Pipelines • Cables • Datacenters',
+      };
     this.searchModal = new SearchModal(this.container, searchOptions);
 
     if (SITE_VARIANT === 'tech') {
@@ -1328,7 +1328,7 @@ export class App {
     const mapContainer = document.getElementById('mapContainer') as HTMLElement;
     this.map = new MapContainer(mapContainer, {
       zoom: this.isMobile ? 2.5 : 1.0,
-      pan: { x: 0, y: 0 },  // Centered view to show full world
+      pan: { x: 0, y: 20 },  // Centered view to show full world
       view: this.isMobile ? 'mena' : 'global',
       layers: this.mapLayers,
       timeRange: '7d',
@@ -2495,7 +2495,7 @@ export class App {
       { type: 'news', region: 'global', count: collectedNews.length },
     ]).then(anomalies => {
       if (anomalies.length > 0) signalAggregator.ingestTemporalAnomalies(anomalies);
-    }).catch(() => {});
+    }).catch(() => { });
 
     // Update map hotspots
     this.map?.updateHotspotActivity(this.allNews);
@@ -2852,7 +2852,7 @@ export class App {
           { type: 'vessels', region: 'global', count: vesselData.vessels.length },
         ]).then(anomalies => {
           if (anomalies.length > 0) signalAggregator.ingestTemporalAnomalies(anomalies);
-        }).catch(() => {});
+        }).catch(() => { });
         // Update map only if layer is visible
         if (this.mapLayers.military) {
           this.map?.setMilitaryFlights(flightData.flights, flightData.clusters);
@@ -3019,7 +3019,7 @@ export class App {
         { type: 'ais_gaps', region: 'global', count: disruptions.length },
       ]).then(anomalies => {
         if (anomalies.length > 0) signalAggregator.ingestTemporalAnomalies(anomalies);
-      }).catch(() => {});
+      }).catch(() => { });
 
       const hasData = disruptions.length > 0 || density.length > 0;
       this.map?.setLayerReady('ais', hasData);
@@ -3204,7 +3204,7 @@ export class App {
         { type: 'vessels', region: 'global', count: vesselData.vessels.length },
       ]).then(anomalies => {
         if (anomalies.length > 0) signalAggregator.ingestTemporalAnomalies(anomalies);
-      }).catch(() => {});
+      }).catch(() => { });
       this.map?.updateMilitaryForEscalation(flightData.flights, vesselData.vessels);
       (this.panels['cii'] as CIIPanel)?.refresh();
       if (!isInLearningMode()) {
@@ -3399,7 +3399,7 @@ export class App {
           if (anomalies.length > 0) {
             signalAggregator.ingestTemporalAnomalies(anomalies);
           }
-        }).catch(() => {});
+        }).catch(() => { });
       }
       this.statusPanel?.updateApi('FIRMS', { status: 'ok' });
     } catch (e) {
