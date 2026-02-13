@@ -1156,6 +1156,7 @@ export class App {
             </button>
           </div>
           <div class="map-container" id="mapContainer"></div>
+          <div class="map-scanline"></div>
           <div class="map-resize-handle" id="mapResizeHandle"></div>
         </div>
         <div class="panels-grid" id="panelsGrid"></div>
